@@ -1,9 +1,16 @@
 import React from 'react';
 
-function App() {
+import GlobalStyle from './styles/globals';
+import Dashboard from './pages/Dashboard';
+
+const App: React.FC = () => {
   return (
-    <h1>hello</h1>
+    <>
+      <Dashboard />
+
+      <GlobalStyle />
+    </>
   );
-}
+};
 
 export default App;
