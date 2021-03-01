@@ -51,7 +51,7 @@ export const MenuOptions = styled.div<MenuOptionsProps>`
     border: 0;
     background-color: #fff;
     color: #c7c6cf;
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .config-button {
