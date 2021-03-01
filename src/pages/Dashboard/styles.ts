@@ -335,6 +335,11 @@ export const PermissionControls = styled.div`
 
 export const ButtonDiv = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: center;
   margin-top: 30px;
+
+  div {
+    margin-left: 20px;
+  }
 `;

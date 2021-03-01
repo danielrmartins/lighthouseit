@@ -290,7 +290,7 @@ const Dashboard: React.FC = () => {
               </header>
               <PermissionControls>
                 {permissionRulesMock.map((rule) => (
-                  <div>
+                  <div key={rule.id}>
                     <IOSSwitch checked={rule.checked} />
                     <div>
                       <span>{rule.name} </span>
@@ -305,11 +305,15 @@ const Dashboard: React.FC = () => {
                   title="Cancelar"
                   typeButton={ButtonTypeEnum.CANCEL}
                 />
-                <Button
-                  icon={AiOutlineSave}
-                  title="Salvar"
-                  typeButton={ButtonTypeEnum.SAVE}
-                />
+                <div>
+                  <Button
+                    className="SaveButton"
+                    icon={AiOutlineSave}
+                    title="Salvar"
+                    typeButton={ButtonTypeEnum.SAVE}
+                    style={{ marginLeft: 10 }}
+                  />
+                </div>
               </ButtonDiv>
             </PermissionRules>
           </PermissionContainer>
