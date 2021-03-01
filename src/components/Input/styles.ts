@@ -25,6 +25,6 @@ export const Container = styled.div`
   svg {
     margin-right: 16px;
     margin-left: 5px;
-    color: red;
+    color: #bb4546;
   }
 `;
