@@ -125,9 +125,13 @@ const IOSSwitch = withStyles((theme: Theme) =>
 });
 
 const Dashboard: React.FC = () => {
-  const [selectedRole, setSelectedRole] = useState<RoleEnum>(
-    RoleEnum.PERMISSION,
-  );
+  const [selectedRole, setSelectedRole] = useState<RoleEnum>(RoleEnum.USER);
+  const [isSelectConfig, setIsSelectConfig] = useState(false);
+
+  const handleBack = () => {
+    setSelectedRole(RoleEnum.USER);
+    setIsSelectConfig(false);
+  };
 
   return (
     <Container>
@@ -136,12 +140,16 @@ const Dashboard: React.FC = () => {
           <img src={logoImg} alt="Logo" />
 
           <Divider>
-            <MenuOptions>
+            <MenuOptions isSelectConfigMenu={isSelectConfig}>
               <button type="button">
                 <GoGraph style={{ verticalAlign: 'top', marginRight: 20 }} />
                 On Board
               </button>
-              <button type="button" /* onClick={() => alert('olá')} */>
+              <button
+                className="config-button"
+                type="button"
+                onClick={() => setIsSelectConfig(true)}
+              >
                 <GoGraph style={{ verticalAlign: 'top', marginRight: 20 }} />
                 Configurações
               </button>
@@ -170,155 +178,162 @@ const Dashboard: React.FC = () => {
         </MenuStyle>
       </MenuContent>
 
-      {/* VAI APARECER QUANDO CLICAR EM CONFIGURAÇÕES */}
+      {isSelectConfig && (
+        <PageContent>
+          <Header>
+            <div>
+              <h5>Configurações</h5>
+              <button type="button" onClick={handleBack}>
+                Voltar
+              </button>
+            </div>
+          </Header>
 
-      <PageContent>
-        <Header>
-          <div>
-            <h5>Configurações</h5>
-            <button type="button">Voltar</button>
-          </div>
-        </Header>
+          <Roles selectedRoleEnum={selectedRole}>
+            <button
+              type="button"
+              onClick={() => setSelectedRole(RoleEnum.USER)}
+            >
+              Usuários
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelectedRole(RoleEnum.PERMISSION)}
+            >
+              Permissões
+            </button>
+          </Roles>
 
-        <Roles selectedRoleEnum={selectedRole}>
-          <button type="button" onClick={() => setSelectedRole(RoleEnum.USER)}>
-            Usuários
-          </button>
-          <button
-            type="button"
-            onClick={() => setSelectedRole(RoleEnum.PERMISSION)}
-          >
-            Permissões
-          </button>
-        </Roles>
-
-        {selectedRole === RoleEnum.USER ? (
-          <UserContent>
-            <UserContentHeader>
-              <div>
-                <h5>EBP | Usuários</h5>
-                <span>
-                  Inclua e edite os dados dos usuários e suas permissões
-                </span>
-              </div>
-              <div>
-                <Input icon={AiOutlineSearch} placeholder="Pesquisar" />
-              </div>
-            </UserContentHeader>
-
-            <TableContainerStyled>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCellTitle>Usuário</TableCellTitle>
-                    <TableCellTitle>Cargo</TableCellTitle>
-                    <TableCellTitle>Data de Inclusão</TableCellTitle>
-                    <TableCellTitle colSpan={2}>Atualizado por</TableCellTitle>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {userMock.map((user) => (
-                    <StyledTableRow key={user.id}>
-                      <TableCellContent>{user.name}</TableCellContent>
-                      <TableCellContent>{user.role}</TableCellContent>
-                      <TableCellContent>{user.createdAt}</TableCellContent>
-                      <TableCellContent>{user.updatedFor}</TableCellContent>
-                      <TableCellContentIcons>
-                        <FaEye
-                          size={16}
-                          style={{ marginRight: 10, color: '#9495a3' }}
-                        />
-                        <FaUserEdit
-                          size={16}
-                          style={{ marginRight: 10, color: '#9495a3' }}
-                        />
-                        <FaUserShield
-                          size={16}
-                          style={{ marginRight: 10, color: '#9495a3' }}
-                        />
-                        <FaTrash
-                          size={16}
-                          style={{ marginRight: 10, color: '#9495a3' }}
-                        />
-                      </TableCellContentIcons>
-                    </StyledTableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainerStyled>
-            <PaginationContent>
-              <Pagination
-                count={9}
-                variant="outlined"
-                shape="rounded"
-                siblingCount={2}
-                color="standard"
-                style={{ marginRight: 20 }}
-              />
-            </PaginationContent>
-          </UserContent>
-        ) : (
-          <PermissionContainer>
-            <PermissionContent>
-              <header>
+          {selectedRole === RoleEnum.USER ? (
+            <UserContent>
+              <UserContentHeader>
                 <div>
-                  <h3>Permissões</h3>
-                  <Button
-                    icon={FaPlus}
-                    title="Adicionar"
-                    typeButton={ButtonTypeEnum.ADD}
-                  />
+                  <h5>EBP | Usuários</h5>
+                  <span>
+                    Inclua e edite os dados dos usuários e suas permissões
+                  </span>
                 </div>
-              </header>
-              <PermissionRoles>
                 <div>
-                  {permissionRoleMock.map((role) => (
-                    <button type="button" key={role.id}>
-                      {role.id} &nbsp; &nbsp; {role.name}
-                    </button>
-                  ))}
+                  <Input icon={AiOutlineSearch} placeholder="Pesquisar" />
                 </div>
-              </PermissionRoles>
-            </PermissionContent>
-            <PermissionRules>
-              <header>
-                <h3>PL Project Leader (EBP)</h3>
-                <div>
-                  <MdModeEdit color="gray" style={{ marginRight: 10 }} />
-                  <FaTrash color="gray" style={{ marginRight: 10 }} />
-                </div>
-              </header>
-              <PermissionControls>
-                {permissionRulesMock.map((rule) => (
-                  <div key={rule.id}>
-                    <IOSSwitch checked={rule.checked} />
-                    <div>
-                      <span>{rule.name} </span>
-                      <h4>{rule.description} </h4>
-                    </div>
-                  </div>
-                ))}
-              </PermissionControls>
-              <ButtonDiv>
-                <Button
-                  icon={AiOutlineClose}
-                  title="Cancelar"
-                  typeButton={ButtonTypeEnum.CANCEL}
+              </UserContentHeader>
+
+              <TableContainerStyled>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCellTitle>Usuário</TableCellTitle>
+                      <TableCellTitle>Cargo</TableCellTitle>
+                      <TableCellTitle>Data de Inclusão</TableCellTitle>
+                      <TableCellTitle colSpan={2}>
+                        Atualizado por
+                      </TableCellTitle>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {userMock.map((user) => (
+                      <StyledTableRow key={user.id}>
+                        <TableCellContent>{user.name}</TableCellContent>
+                        <TableCellContent>{user.role}</TableCellContent>
+                        <TableCellContent>{user.createdAt}</TableCellContent>
+                        <TableCellContent>{user.updatedFor}</TableCellContent>
+                        <TableCellContentIcons>
+                          <FaEye
+                            size={16}
+                            style={{ marginRight: 10, color: '#9495a3' }}
+                          />
+                          <FaUserEdit
+                            size={16}
+                            style={{ marginRight: 10, color: '#9495a3' }}
+                          />
+                          <FaUserShield
+                            size={16}
+                            style={{ marginRight: 10, color: '#9495a3' }}
+                          />
+                          <FaTrash
+                            size={16}
+                            style={{ marginRight: 10, color: '#9495a3' }}
+                          />
+                        </TableCellContentIcons>
+                      </StyledTableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainerStyled>
+              <PaginationContent>
+                <Pagination
+                  count={9}
+                  variant="outlined"
+                  shape="rounded"
+                  siblingCount={2}
+                  color="standard"
+                  style={{ marginRight: 20 }}
                 />
-                <div>
+              </PaginationContent>
+            </UserContent>
+          ) : (
+            <PermissionContainer>
+              <PermissionContent>
+                <header>
+                  <div>
+                    <h3>Permissões</h3>
+                    <Button
+                      icon={FaPlus}
+                      title="Adicionar"
+                      typeButton={ButtonTypeEnum.ADD}
+                    />
+                  </div>
+                </header>
+                <PermissionRoles>
+                  <div>
+                    {permissionRoleMock.map((role) => (
+                      <button type="button" key={role.id}>
+                        {role.id} &nbsp; &nbsp; {role.name}
+                      </button>
+                    ))}
+                  </div>
+                </PermissionRoles>
+              </PermissionContent>
+              <PermissionRules>
+                <header>
+                  <h3>PL Project Leader (EBP)</h3>
+                  <div>
+                    <MdModeEdit color="gray" style={{ marginRight: 10 }} />
+                    <FaTrash color="gray" style={{ marginRight: 10 }} />
+                  </div>
+                </header>
+                <PermissionControls>
+                  {permissionRulesMock.map((rule) => (
+                    <div key={rule.id}>
+                      <IOSSwitch checked={rule.checked} />
+                      <div>
+                        <span>{rule.name} </span>
+                        <h4>{rule.description} </h4>
+                      </div>
+                    </div>
+                  ))}
+                </PermissionControls>
+                <ButtonDiv>
                   <Button
-                    className="SaveButton"
-                    icon={AiOutlineSave}
-                    title="Salvar"
-                    typeButton={ButtonTypeEnum.SAVE}
-                    style={{ marginLeft: 10 }}
+                    icon={AiOutlineClose}
+                    title="Cancelar"
+                    typeButton={ButtonTypeEnum.CANCEL}
                   />
-                </div>
-              </ButtonDiv>
-            </PermissionRules>
-          </PermissionContainer>
-        )}
-      </PageContent>
+                  <div>
+                    <Button
+                      className="SaveButton"
+                      icon={AiOutlineSave}
+                      title="Salvar"
+                      typeButton={ButtonTypeEnum.SAVE}
+                      style={{ marginLeft: 10 }}
+                    />
+                  </div>
+                </ButtonDiv>
+              </PermissionRules>
+            </PermissionContainer>
+          )}
+        </PageContent>
+      )}
     </Container>
   );
 };

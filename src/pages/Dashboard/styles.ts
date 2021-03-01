@@ -10,6 +10,10 @@ interface RolesProps {
   selectedRoleEnum: RoleEnum;
 }
 
+interface MenuOptionsProps {
+  isSelectConfigMenu: boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   height: 100vh;
@@ -19,7 +23,7 @@ export const MenuContent = styled.div`
   display: flex;
   justify-content: center;
   background-color: #fff;
-  width: 25vh;
+  width: 21vh;
 `;
 
 export const MenuStyle = styled.div`
@@ -36,7 +40,7 @@ export const Divider = styled.div`
   justify-content: space-between;
 `;
 
-export const MenuOptions = styled.div`
+export const MenuOptions = styled.div<MenuOptionsProps>`
   display: flex;
   flex-direction: column;
   margin-top: 30px;
@@ -48,6 +52,17 @@ export const MenuOptions = styled.div`
     background-color: #fff;
     color: #c7c6cf;
     font-size: 16px;
+  }
+
+  .config-button {
+    ${(props) =>
+      props.isSelectConfigMenu &&
+      css`
+        color: #111;
+        svg {
+          color: #bb4546;
+        }
+      `}
   }
 `;
 
@@ -80,7 +95,7 @@ export const Profile = styled.div`
 export const PageContent = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 170vh;
   margin: 20px 20px 20px 30px;
 `;
 
