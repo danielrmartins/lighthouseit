@@ -2,14 +2,6 @@
   Desafio Lighthouseit
 </h3>
 
-<p align="center">
-  <a href="#rocket-sobre-o-desafio">Sobre o desafio</a>
-</p>
-
-## :rocket: Sobre o desafio
-
-Desafio técnico para vaga de Dev React, lembre-se de executar o comando `yarn` no seu terminal para instalar todas as dependências.
-
 # Indice
 
 - [Sobre](#-sobre)
@@ -18,8 +10,7 @@ Desafio técnico para vaga de Dev React, lembre-se de executar o comando `yarn` 
 
 ## 🔖&nbsp; Sobre
 
-O projeto **RocketMusic** é um e-commerce que foi criado dentro do curso **Bootcamp GoStack** com o intuito de colocarmos em prática todo conteúdo estudado durante o curso.
-
+Desafio técnico para vaga de Dev React, lembre-se de executar o comando `yarn` no seu terminal para instalar todas as dependências.
 ---
 
 ## 🚀 Tecnologias utilizadas
@@ -35,10 +26,10 @@ O projeto foi desenvolvido utilizando as seguintes tecnologias
 ```bash
 
     # Clonar o repositório
-    $ git clone https://github.com/danileao/rocketmusic
+    $ git clone https://github.com/danielrmartins/lighthouseit
 
     # Entrar no diretório
-    $ cd rocketmusic
+    $ cd lighthouseit
 
     # Instalar as dependências
     $ yarn install
