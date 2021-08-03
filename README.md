@@ -10,7 +10,8 @@
 
 ## 🔖&nbsp; Sobre
 
-Desafio técnico para vaga de Dev React, lembre-se de executar o comando `yarn` no seu terminal para instalar todas as dependências.
+Desafio técnico para vaga de Dev React.
+
 ---
 
 ## 🚀 Tecnologias utilizadas
